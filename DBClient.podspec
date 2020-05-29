@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'DBClient'
-  s.version          = '1.4.2'
+  s.version          = '1.5'
   s.requires_arc = true
   s.summary          = 'CoreData & Realm wrapper written on Swift'
   s.homepage         = ''
@@ -10,7 +10,6 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://yalantis.com/'
   s.homepage = 'https://yalantis.com/'
   s.ios.deployment_target = '10.0'
-  s.dependency 'YALResult', '1.4'
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |spec|

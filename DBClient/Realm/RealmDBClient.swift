@@ -48,26 +48,26 @@ public class RealmDBClient {
 extension RealmDBClient: DBClient {
     
     /// Executes given request. Fetches all entities and then applies all given restrictions
-    public func execute<T>(_ request: FetchRequest<T>, completion: @escaping (Result<[T]>) -> Void) {
+    public func execute<T>(_ request: FetchRequest<T>, completion: @escaping (Result<[T], DataBaseError>) -> Void) {
         completion(execute(request))
     }
     
     /// Inserts new objects to database. If object with such `primaryKeyValue` already exists Realm'll throw an error
-    public func insert<T>(_ objects: [T], completion: @escaping (Result<[T]>) -> Void) where T : Stored {
+    public func insert<T>(_ objects: [T], completion: @escaping (Result<[T], DataBaseError>) -> Void) where T : Stored {
         completion(insert(objects))
     }
     
     /// Updates objects which are already in db.
-    public func update<T>(_ objects: [T], completion: @escaping (Result<[T]>) -> Void) where T : Stored {
+    public func update<T>(_ objects: [T], completion: @escaping (Result<[T], DataBaseError>) -> Void) where T : Stored {
         completion(update(objects))
     }
     
     /// Removes objects by it `primaryKeyValue`s
-    public func delete<T>(_ objects: [T], completion: @escaping (Result<()>) -> Void) where T : Stored {
+    public func delete<T>(_ objects: [T], completion: @escaping (Result<Void, DataBaseError>) -> Void) where T : Stored {
         completion(delete(objects))
     }
     
-    public func deleteAllObjects<T>(of type: T.Type, completion: @escaping (Result<()>) -> Void) where T: Stored {
+    public func deleteAllObjects<T>(of type: T.Type, completion: @escaping (Result<Void, DataBaseError>) -> Void) where T: Stored {
         let type = checkType(T.self)
         
         let realmType = type.realmClass()
@@ -80,11 +80,11 @@ extension RealmDBClient: DBClient {
             
             completion(.success(()))
         } catch {
-            completion(.failure(error))
+            completion(.failure(.write(error)))
         }
     }
 
-    public func upsert<T>(_ objects: [T], completion: @escaping (Result<(updated: [T], inserted: [T])>) -> Void) where T : Stored {
+    public func upsert<T>(_ objects: [T], completion: @escaping (Result<(updated: [T], inserted: [T]), DataBaseError>) -> Void) where T : Stored {
         completion(upsert(objects))
     }
     
@@ -94,7 +94,7 @@ extension RealmDBClient: DBClient {
         return RealmObservable(request: request, realm: realm)
     }
     
-    public func execute<T>(_ request: FetchRequest<T>) -> Result<[T]> {
+    public func execute<T>(_ request: FetchRequest<T>) -> Result<[T], DataBaseError> {
         let modelType = checkType(T.self)
         let neededType = modelType.realmClass()
         let objects = request
@@ -107,7 +107,7 @@ extension RealmDBClient: DBClient {
     }
     
     @discardableResult
-    public func insert<T: Stored>(_ objects: [T]) -> Result<[T]> {
+    public func insert<T: Stored>(_ objects: [T]) -> Result<[T], DataBaseError> {
         checkType(T.self)
         
         let realmObjects = objects.compactMap { ($0 as? RealmModelConvertible)?.toRealmObject() }
@@ -118,12 +118,12 @@ extension RealmDBClient: DBClient {
             try realm.commitWrite()
             return .success(objects)
         } catch {
-            return .failure(error)
+            return .failure(.write(error))
         }
     }
     
     @discardableResult
-    public func update<T: Stored>(_ objects: [T]) -> Result<[T]> {
+    public func update<T: Stored>(_ objects: [T]) -> Result<[T], DataBaseError> {
         checkType(T.self)
         
         let realmObjects = separate(objects: objects)
@@ -136,12 +136,12 @@ extension RealmDBClient: DBClient {
             
             return .success(objects)
         } catch let error {
-            return .failure(error)
+            return .failure(.write(error))
         }
     }
     
     @discardableResult
-    public func delete<T: Stored>(_ objects: [T]) -> Result<()> {
+    public func delete<T: Stored>(_ objects: [T]) -> Result<Void, DataBaseError> {
         let type = checkType(T.self)
         
         let realmType = type.realmClass()
@@ -155,12 +155,12 @@ extension RealmDBClient: DBClient {
             
             return .success(())
         } catch {
-            return .failure(error)
+            return .failure(.write(error))
         }
     }
     
     @discardableResult
-    public func upsert<T : Stored>(_ objects: [T]) -> Result<(updated: [T], inserted: [T])> {
+    public func upsert<T : Stored>(_ objects: [T]) -> Result<(updated: [T], inserted: [T]), DataBaseError> {
         checkType(T.self)
         
         let separatedObjects = separate(objects: objects)
@@ -171,7 +171,7 @@ extension RealmDBClient: DBClient {
             try realm.commitWrite()
             return .success((updated: separatedObjects.present, inserted: separatedObjects.new))
         } catch {
-            return .failure(error)
+            return .failure(.write(error))
         }
     }
     
