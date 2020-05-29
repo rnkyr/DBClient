@@ -51,7 +51,7 @@ class RealmFetchTests: DBClientRealmTest {
         var expectedObjectsCount = 0
         
         self.dbClient.insert(randomUsers) { result in
-            self.dbClient.findAll { (result: Result<[User]>) in
+            self.dbClient.findAll { (result: Result<[User], DataBaseError>) in
                 expectedObjectsCount = result.value?.count ?? 0
                 expectationObjects.fulfill()
             }

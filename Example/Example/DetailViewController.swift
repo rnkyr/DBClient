@@ -27,5 +27,4 @@ class DetailViewController: UIViewController, DBClientInjectable {
             self?.navigationController?.popViewController(animated: true)
         }
     }
-    
 }

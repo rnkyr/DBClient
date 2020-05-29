@@ -29,22 +29,40 @@ class DBClientTest: XCTestCase {
     // removes all objects from the database
     func cleanUpDatabase() {
         guard dbClient != nil else { return }
-        let expectationDeleletion = expectation(description: "Deletion")
+        let expectationDeletion = expectation(description: "Deletion")
         var isDeleted = false
         
-        dbClient.findAll { (result: Result<[User]>) in
+        dbClient.findAll { (result: Result<[User], DataBaseError>) in
             guard let objects = result.value else {
-                expectationDeleletion.fulfill()
+                expectationDeletion.fulfill()
                 return
             }
             self.dbClient.delete(objects) { _ in
                 isDeleted = true
-                expectationDeleletion.fulfill()
+                expectationDeletion.fulfill()
             }
         }
         
         waitForExpectations(timeout: 1) { _ in
             XCTAssert(isDeleted)
+        }
+    }
+}
+
+extension Result {
+    
+    var value: Success? {
+        switch self {
+        case .success(let result): return result
+        case .failure: return nil
+        }
+    }
+    
+    @discardableResult
+    func require() -> Success {
+        switch self {
+        case .success(let value): return value
+        case .failure(let error): fatalError("Value is required: \(error)")
         }
     }
 }

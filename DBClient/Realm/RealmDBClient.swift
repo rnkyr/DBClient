@@ -131,7 +131,7 @@ extension RealmDBClient: DBClient {
             .compactMap { ($0 as? RealmModelConvertible)?.toRealmObject() }
         do {
             realm.beginWrite()
-            realm.add(realmObjects, update: true)
+            realm.add(realmObjects, update: .all)
             try realm.commitWrite()
             
             return .success(objects)
@@ -167,7 +167,7 @@ extension RealmDBClient: DBClient {
         let realmObjects = objects.compactMap { ($0 as? RealmModelConvertible)?.toRealmObject() }
         do {
             realm.beginWrite()
-            realm.add(realmObjects, update: true)
+            realm.add(realmObjects, update: .all)
             try realm.commitWrite()
             return .success((updated: separatedObjects.present, inserted: separatedObjects.new))
         } catch {

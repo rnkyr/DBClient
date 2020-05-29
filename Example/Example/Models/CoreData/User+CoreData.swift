@@ -55,5 +55,4 @@ extension User: CoreDataModelConvertible {
         
         return false
     }
-    
 }

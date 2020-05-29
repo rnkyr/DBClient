@@ -31,5 +31,4 @@ extension User: RealmModelConvertible {
         
         return user
     }
-
 }

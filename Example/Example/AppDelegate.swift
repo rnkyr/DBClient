@@ -12,5 +12,4 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-    
 }

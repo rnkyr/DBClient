@@ -17,5 +17,4 @@ class ObjectUser: Object {
 
     @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
-
 }
