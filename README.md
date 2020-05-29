@@ -42,7 +42,7 @@ To adopt Realm, you need to provide `RealmModelConvertible` protocol implementat
 
 The protocol contains three required methods.
 
-The first one provides a  class (decendant of realm's `Object`) to be associated with your model:
+The first one provides a  class (descendant of realm's `Object`) to be associated with your model:
 ```
 static func realmClass() -> Object.Type {
     return ObjectUser.self
@@ -143,6 +143,7 @@ public func upsertManagedObject(in context: NSManagedObjectContext, existedInsta
 
 | Version | Swift | Dependencies                                | iOS  |
 |----------|-------|----------------------------------------|------|
+| `1.5`     | 5       | RealmSwift 5.0.1  | 10   |
 | `1.4.2`     | 5       | RealmSwift 3.15.0, YALResult 1.4  | 10   |
 | `1.3`     | 4.2    | RealmSwift 3.11.1, YALResult 1.1  | 10   |
 | `1.0`     | 4.2    | RealmSwift 2.10.1, YALResult 1.0  | 10   |
