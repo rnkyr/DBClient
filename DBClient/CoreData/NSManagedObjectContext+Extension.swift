@@ -35,10 +35,9 @@ extension NSManagedObjectContext {
             }
         }
         
-        // fake rethrowing
+        // fake re-throwing
         if let outError = outError {
             throw outError
         }
     }
-    
 }

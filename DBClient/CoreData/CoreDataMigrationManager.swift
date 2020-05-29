@@ -147,5 +147,4 @@ final class CoreDataMigrationManager: NSObject, MigrationManager {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-    
 }

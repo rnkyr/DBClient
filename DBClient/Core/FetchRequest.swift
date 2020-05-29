@@ -82,8 +82,8 @@ public extension FetchRequest {
         return request(withSortDescriptors: sortDescriptors)
     }
     
-    func sorted(with key: String?, ascending: Bool, comparator cmptr: @escaping Comparator) -> FetchRequest<T> {
-        return request(withSortDescriptors: [NSSortDescriptor(key: key, ascending: ascending, comparator: cmptr)])
+    func sorted(with key: String?, ascending: Bool, comparator: @escaping Comparator) -> FetchRequest<T> {
+        return request(withSortDescriptors: [NSSortDescriptor(key: key, ascending: ascending, comparator: comparator)])
     }
     
     func sorted(with key: String?, ascending: Bool) -> FetchRequest<T> {

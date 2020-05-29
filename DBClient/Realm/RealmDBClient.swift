@@ -33,7 +33,7 @@ extension RealmModelConvertible {
 }
 
 /// Implementation of database client for Realm storage type.
-/// Model for this client must conform to `RealmModelConverible` protocol or error will be raised.
+/// Model for this client must conform to `RealmModelConvertible` protocol or error will be raised.
 public class RealmDBClient {
     
     let realm: Realm
@@ -174,7 +174,6 @@ extension RealmDBClient: DBClient {
             return .failure(.write(error))
         }
     }
-    
 }
 
 private extension RealmDBClient {
@@ -189,7 +188,7 @@ private extension RealmDBClient {
             let model = String(describing: RealmDBClient.self)
             let prot = String(describing: RealmModelConvertible.self)
             let given = String(describing: inputType)
-            fatalError("`\(model)` can manage only types which conform to `\(prot)`. `\(given)` given.")
+            fatalError("`\(model)` can manage only types which conforms to `\(prot)`. `\(given)` given.")
         }
     }
     
@@ -238,7 +237,6 @@ private extension SortDescriptor {
             return nil
         }
     }
-    
 }
 
 private extension Array {

@@ -26,7 +26,7 @@ public protocol DBClient {
     ///
     /// - Parameters:
     ///   - request: request to execute
-    ///   - completion: `Result` with array of objects or error in case of failude.
+    ///   - completion: `Result` with array of objects or error in case of failure.
     func execute<T>(_ request: FetchRequest<T>, completion: @escaping (Result<[T], DataBaseError>) -> Void)
     
     /// Creates observable request from given `FetchRequest`.
@@ -70,7 +70,7 @@ public protocol DBClient {
     ///
     /// - Parameters:
     ///   - request: request to execute
-    /// - Returns: `Result` with array of objects or error in case of failude.
+    /// - Returns: `Result` with array of objects or error in case of failure.
     func execute<T>(_ request: FetchRequest<T>) -> Result<[T], DataBaseError>
     
     /// Synchronously inserts objects to database.

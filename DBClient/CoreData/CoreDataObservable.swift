@@ -88,10 +88,9 @@ class CoreDataObservable<T: Stored, U: NSManagedObject>: RequestObservable<T> {
             closure(.error(error))
         }
     }
-    
 }
 
-/// A separate class to avoid inherintace from NSObject
+/// A separate class to avoid inheritace from NSObject
 private class FetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, NSFetchedResultsControllerDelegate {
     
     var observer: ((ObservableChange<T>) -> Void)?
@@ -138,5 +137,4 @@ private class FetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, NS
         }
         batchChanges = []
     }
-    
 }

@@ -8,60 +8,11 @@
 
 import CoreData
 
-/// Describes type of model for CoreData database client.
-/// Model should conform to CoreDataModelConvertible protocol
-/// for ability to be fetched/saved/updated/deleted in CoreData
-public protocol CoreDataModelConvertible: Stored {
-    
-    /// Returns type of object for model.
-    static func managedObjectClass() -> NSManagedObject.Type
-    
-    /// Executes mapping from `NSManagedObject` instance.
-    ///
-    /// - Parameter managedObject: object to be mapped from.
-    /// - Returns: mapped object.
-    static func from(_ managedObject: NSManagedObject) -> Stored
-    
-    /// Executes backward mapping to `NSManagedObject` from given context
-    ///
-    /// - Parameters:
-    ///   - context: context, where object should be created;
-    ///   - existedInstance: if instance was already created it will be passed.
-    /// - Returns: created instance.
-    func upsertManagedObject(in context: NSManagedObjectContext, existedInstance: NSManagedObject?) -> NSManagedObject
-    
-    /// The name of the entity from ".xcdatamodeld"
-    static var entityName: String { get }
-    
-    /// Decides whether primary value of object equal to given
-    func isPrimaryValueEqualTo(value: Any) -> Bool
-}
-
 extension NSManagedObject: Stored {
 
     public static var primaryKeyName: String? { return nil }
     
     public var valueOfPrimaryKey: CVarArg? { return nil }
-}
-
-public enum MigrationType {
-    
-    // provide persistent store constructor with appropriate options
-    case lightweight
-    // in case of failure old model file will be removed
-    case removeOnFailure
-    // perform progressive migration with delegate
-    case progressive(MigrationManagerDelegate?)
-    
-    public func isLightweight() -> Bool {
-        switch self {
-        case .lightweight:
-            return true
-            
-        default:
-            return false
-        }
-    }
 }
 
 /// Implementation of database client for CoreData storage type.
@@ -179,7 +130,7 @@ public class CoreDataDBClient {
     private func performMigration(_ coordinator: NSPersistentStoreCoordinator) throws {
         var options: [AnyHashable: Any]?
         if self.migrationType.isLightweight() {
-            // trying to make it automatically
+            // try to make it automatically
             options = [
                 NSMigratePersistentStoresAutomaticallyOption: true,
                 NSInferMappingModelAutomaticallyOption: true
