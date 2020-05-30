@@ -1,16 +1,16 @@
 Pod::Spec.new do |s|
   s.name             = 'DBClient'
-  s.version          = '1.5'
+  s.version          = '3.0'
   s.requires_arc = true
   s.summary          = 'CoreData & Realm wrapper written on Swift'
   s.homepage         = ''
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Yalantis' => 'mail@yalantis.com' }
-  s.source           = { :git => 'https://github.com/Yalantis/DBClient.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/rnkyr/DBClient.git', :tag => s.version }
   s.social_media_url = 'https://yalantis.com/'
   s.homepage = 'https://yalantis.com/'
   s.ios.deployment_target = '10.0'
-  s.default_subspec = 'Core'
+  s.default_subspec = 'CoreData'
 
   s.subspec 'Core' do |spec|
 	spec.source_files = ['DBClient/Core/*.swift']

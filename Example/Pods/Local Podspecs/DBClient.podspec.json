@@ -1,0 +1,59 @@
+{
+  "name": "DBClient",
+  "version": "3.0",
+  "requires_arc": true,
+  "summary": "CoreData & Realm wrapper written on Swift",
+  "homepage": "https://yalantis.com/",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Yalantis": "mail@yalantis.com"
+  },
+  "source": {
+    "git": "https://github.com/rnkyr/DBClient.git",
+    "tag": "3.0"
+  },
+  "social_media_url": "https://yalantis.com/",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "default_subspecs": "CoreData",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": [
+        "DBClient/Core/*.swift"
+      ]
+    },
+    {
+      "name": "CoreData",
+      "dependencies": {
+        "DBClient/Core": [
+
+        ]
+      },
+      "source_files": [
+        "DBClient/CoreData/*.swift"
+      ],
+      "frameworks": [
+        "CoreData"
+      ]
+    },
+    {
+      "name": "Realm",
+      "dependencies": {
+        "DBClient/Core": [
+
+        ],
+        "RealmSwift": [
+          "~> 5.0.1"
+        ]
+      },
+      "source_files": [
+        "DBClient/Realm/*.swift"
+      ]
+    }
+  ]
+}
