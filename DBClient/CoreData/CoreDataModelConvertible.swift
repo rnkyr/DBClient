@@ -38,7 +38,7 @@ public protocol CoreDataModelConvertible: Stored {
 
 extension CoreDataModelConvertible {
     
-    public func extractModel<T: CoreDataModelConvertible>(from managedObject: NSManagedObject?) -> T? {
+    public static func extractModel<T: CoreDataModelConvertible>(from managedObject: NSManagedObject?) -> T? {
         if let object = managedObject {
             return T.from(object) as? T
         }
@@ -46,7 +46,7 @@ extension CoreDataModelConvertible {
         return nil
     }
 
-    public func extractModel<T: CoreDataModelConvertible>(from managedObject: NSManagedObject) -> T {
+    public static func extractModel<T: CoreDataModelConvertible>(from managedObject: NSManagedObject) -> T {
         guard let object = T.from(managedObject) as? T else {
             fatalError("Can't convert \(managedObject) to \(T.self)")
         }
@@ -54,7 +54,7 @@ extension CoreDataModelConvertible {
         return object
     }
 
-    public func upsertingManagedObject<T: NSManagedObject, V: CoreDataModelConvertible>(
+    public static func upsertingManagedObject<T: NSManagedObject, V: CoreDataModelConvertible>(
         of type: V.Type,
         in context: NSManagedObjectContext,
         with existedInstance: NSManagedObject?
