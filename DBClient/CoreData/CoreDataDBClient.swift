@@ -457,9 +457,16 @@ extension CoreDataDBClient: DBClient {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.entityName)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        performWriteTask { context, savingClosure in
+        deleteRequest.resultType = .resultTypeObjectIDs
+        performWriteTask { [weak mainContext] context, savingClosure in
             do {
-                try context.execute(deleteRequest)
+                let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+                if let objectIDs = result?.result as? [NSManagedObjectID] {
+                    for objectID in objectIDs {
+                        guard let object = mainContext?.object(with: objectID) else { continue }
+                        mainContext?.delete(object)
+                    }
+                }
                 try savingClosure()
                 completion(.success(()))
             } catch {
