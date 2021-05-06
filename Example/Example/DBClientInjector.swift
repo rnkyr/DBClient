@@ -8,12 +8,12 @@
 
 import Foundation
 import DBClient
-import RealmSwift
+//import RealmSwift
 
 private struct DBClientInjector {
     
     static let coreDataClient: DBClient = CoreDataDBClient(forModel: "Users")
-    static let realmClient: DBClient = RealmDBClient(realm: try! Realm())
+//    static let realmClient: DBClient = RealmDBClient(realm: try! Realm())
 }
 
 protocol DBClientInjectable {}
@@ -21,7 +21,7 @@ protocol DBClientInjectable {}
 extension DBClientInjectable {
     
     var dbClient: DBClient {
-        //            return DBClientInjector.coreDataClient
-        return DBClientInjector.realmClient
+        return DBClientInjector.coreDataClient
+//        return DBClientInjector.realmClient
     }
 }

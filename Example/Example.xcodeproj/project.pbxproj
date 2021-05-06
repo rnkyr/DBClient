@@ -19,14 +19,6 @@
 		B8D2D434217F35200069CC57 /* CoreDataObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D42D217F35200069CC57 /* CoreDataObservableTests.swift */; };
 		B8D2D435217F35200069CC57 /* CoreDataFetchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D42E217F35200069CC57 /* CoreDataFetchTests.swift */; };
 		B8D2D436217F35200069CC57 /* CoreDataCreateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D42F217F35200069CC57 /* CoreDataCreateTests.swift */; };
-		B8D2D43E217F35260069CC57 /* RealmUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D437217F35260069CC57 /* RealmUpdateTests.swift */; };
-		B8D2D43F217F35260069CC57 /* RealmCreateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D438217F35260069CC57 /* RealmCreateTests.swift */; };
-		B8D2D440217F35260069CC57 /* RealmDeleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D439217F35260069CC57 /* RealmDeleteTests.swift */; };
-		B8D2D441217F35260069CC57 /* RealmUpsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D43A217F35260069CC57 /* RealmUpsertTests.swift */; };
-		B8D2D442217F35260069CC57 /* RealmExecuteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D43B217F35260069CC57 /* RealmExecuteTests.swift */; };
-		B8D2D443217F35260069CC57 /* RealmFetchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D43C217F35260069CC57 /* RealmFetchTests.swift */; };
-		B8D2D444217F35260069CC57 /* RealmObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D43D217F35260069CC57 /* RealmObservableTests.swift */; };
-		B8D2D446217F36B40069CC57 /* DBClientRealmTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D445217F36B40069CC57 /* DBClientRealmTest.swift */; };
 		B8D2D448217F36DC0069CC57 /* DBClientCoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2D447217F36DC0069CC57 /* DBClientCoreDataTest.swift */; };
 		C533725A1E26155D004ECBCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53372591E26155D004ECBCF /* AppDelegate.swift */; };
 		C533725C1E26155D004ECBCF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C533725B1E26155D004ECBCF /* MasterViewController.swift */; };
@@ -39,8 +31,6 @@
 		C533727B1E261A30004ECBCF /* ManagedUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53372711E261A30004ECBCF /* ManagedUser+CoreDataProperties.swift */; };
 		C533727C1E261A30004ECBCF /* User+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53372721E261A30004ECBCF /* User+CoreData.swift */; };
 		C533727D1E261A30004ECBCF /* Users.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C53372731E261A30004ECBCF /* Users.xcdatamodeld */; };
-		C533727E1E261A30004ECBCF /* ObjectUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53372761E261A30004ECBCF /* ObjectUser.swift */; };
-		C533727F1E261A30004ECBCF /* User+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53372771E261A30004ECBCF /* User+Realm.swift */; };
 		C53372801E261A30004ECBCF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53372781E261A30004ECBCF /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -307,7 +297,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = Yalantis;
 				TargetAttributes = {
 					B8275AFC1E4B6D2500232EE4 = {
@@ -469,22 +459,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8D2D434217F35200069CC57 /* CoreDataObservableTests.swift in Sources */,
-				B8D2D442217F35260069CC57 /* RealmExecuteTests.swift in Sources */,
 				B8D2D435217F35200069CC57 /* CoreDataFetchTests.swift in Sources */,
-				B8D2D444217F35260069CC57 /* RealmObservableTests.swift in Sources */,
-				B8D2D441217F35260069CC57 /* RealmUpsertTests.swift in Sources */,
 				B8275B001E4B6D2600232EE4 /* DBClientTest.swift in Sources */,
-				B8D2D43F217F35260069CC57 /* RealmCreateTests.swift in Sources */,
 				B8D2D436217F35200069CC57 /* CoreDataCreateTests.swift in Sources */,
 				B8D2D448217F36DC0069CC57 /* DBClientCoreDataTest.swift in Sources */,
 				B8D2D431217F35200069CC57 /* CoreDataExecuteTests.swift in Sources */,
-				B8D2D443217F35260069CC57 /* RealmFetchTests.swift in Sources */,
 				B8D2D433217F35200069CC57 /* CoreDataUpdateTests.swift in Sources */,
-				B8D2D440217F35260069CC57 /* RealmDeleteTests.swift in Sources */,
 				B8D2D432217F35200069CC57 /* CoreDataDeleteTests.swift in Sources */,
 				B8477EA21E4DC0EA00608B78 /* User+Equtable.swift in Sources */,
-				B8D2D446217F36B40069CC57 /* DBClientRealmTest.swift in Sources */,
-				B8D2D43E217F35260069CC57 /* RealmUpdateTests.swift in Sources */,
 				B8D2D430217F35200069CC57 /* CoreDataUpsertTests.swift in Sources */,
 				B8477EA11E4DC0EA00608B78 /* User+Comparable.swift in Sources */,
 			);
@@ -494,9 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C533727F1E261A30004ECBCF /* User+Realm.swift in Sources */,
 				C533727C1E261A30004ECBCF /* User+CoreData.swift in Sources */,
-				C533727E1E261A30004ECBCF /* ObjectUser.swift in Sources */,
 				C53372791E261A30004ECBCF /* DBClientInjector.swift in Sources */,
 				C533727A1E261A30004ECBCF /* ManagedUser+CoreDataClass.swift in Sources */,
 				C533725E1E26155D004ECBCF /* DetailViewController.swift in Sources */,
@@ -590,6 +570,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -614,7 +595,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -648,6 +628,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -666,7 +647,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

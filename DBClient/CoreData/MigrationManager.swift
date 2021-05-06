@@ -8,7 +8,7 @@
 
 import CoreData
 
-public protocol MigrationManagerDelegate: class {
+public protocol MigrationManagerDelegate: AnyObject {
     
     func migrationManager(_ migrationManager: MigrationManager, updateMigrationProgress: Float)
     func migrationManager(_ migrationManager: MigrationManager, mappingModelsForSourceModel: NSManagedObjectModel) -> [NSMappingModel]

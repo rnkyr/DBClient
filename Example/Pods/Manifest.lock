@@ -1,15 +1,15 @@
 PODS:
-  - DBClient/Core (3.0)
-  - DBClient/CoreData (3.0):
+  - DBClient/Core (3.0.2)
+  - DBClient/CoreData (3.0.2):
     - DBClient/Core
-  - DBClient/Realm (3.0):
+  - DBClient/Realm (3.0.2):
     - DBClient/Core
     - RealmSwift (~> 5.0.1)
-  - Realm (5.0.1):
-    - Realm/Headers (= 5.0.1)
-  - Realm/Headers (5.0.1)
-  - RealmSwift (5.0.1):
-    - Realm (= 5.0.1)
+  - Realm (5.0.3):
+    - Realm/Headers (= 5.0.3)
+  - Realm/Headers (5.0.3)
+  - RealmSwift (5.0.3):
+    - Realm (= 5.0.3)
 
 DEPENDENCIES:
   - DBClient/CoreData (from `../`)
@@ -25,9 +25,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DBClient: 6e6ce4cee08672656bf09fda9d5ebc959da7a279
-  Realm: d36cfc336d76d2e15b13651beb6050f49354de4b
-  RealmSwift: f29ae0ceaf4fbaf4803c40bbebd838ea2beb903a
+  DBClient: d17a49ee41b2709354f1e781a17f6bac4dce7e6b
+  Realm: bfca1699b61b0b17c3a69ae0e648314eae91fbdb
+  RealmSwift: 493c9f089cd3893b3959007973c0e4f640906ba0
 
 PODFILE CHECKSUM: 01e2cf56f70348c45b9e7248a505591dd86d210b
 
