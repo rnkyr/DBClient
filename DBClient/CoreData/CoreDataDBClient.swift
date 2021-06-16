@@ -110,6 +110,14 @@ public class CoreDataDBClient {
         return fetchContext
     }()
     
+    public func dropStorage() throws {
+        let url = storeURL
+        if let store = persistentStoreCoordinator.persistentStore(for: url) {
+            try persistentStoreCoordinator.remove(store)
+        }
+        try FileManager.default.removeItem(at: url)
+    }
+    
     // MARK: - Migration
     
     private func isMigrationNeeded() -> Bool {
