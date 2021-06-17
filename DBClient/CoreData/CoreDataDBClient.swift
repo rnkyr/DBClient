@@ -110,14 +110,6 @@ public class CoreDataDBClient {
         return fetchContext
     }()
     
-    public func dropStorage() throws {
-        let url = storeURL
-        if let store = persistentStoreCoordinator.persistentStore(for: url) {
-            try persistentStoreCoordinator.remove(store)
-        }
-        try FileManager.default.removeItem(at: url)
-    }
-    
     // MARK: - Migration
     
     private func isMigrationNeeded() -> Bool {
@@ -474,6 +466,22 @@ extension CoreDataDBClient: DBClient {
                         guard let object = mainContext?.object(with: objectID) else { continue }
                         mainContext?.delete(object)
                     }
+                }
+                try savingClosure()
+                completion(.success(()))
+            } catch {
+                completion(.failure(.write(error)))
+            }
+        }
+    }
+    
+    public func deleteAllObject(with entityNames: [String], completion: @escaping (Result<Void, DataBaseError>) -> Void) {
+        performWriteTask { context, savingClosure in
+            do {
+                try entityNames.forEach { entityName in
+                    try context.execute(NSBatchDeleteRequest(
+                        fetchRequest: NSFetchRequest(entityName: entityName)
+                    ))
                 }
                 try savingClosure()
                 completion(.success(()))
