@@ -1,6 +1,6 @@
 {
   "name": "DBClient",
-  "version": "3.0.2",
+  "version": "3.0.5",
   "requires_arc": true,
   "summary": "CoreData & Realm wrapper written on Swift",
   "homepage": "https://yalantis.com/",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/rnkyr/DBClient.git",
-    "tag": "3.0.2"
+    "tag": "3.0.5"
   },
   "social_media_url": "https://yalantis.com/",
   "platforms": {
