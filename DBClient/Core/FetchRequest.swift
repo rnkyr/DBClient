@@ -57,7 +57,7 @@ public extension FetchRequest {
      - Returns: New instance
      */
     func filtered(with key: String, in value: [String]) -> FetchRequest<T> {
-        return request(withPredicate: NSPredicate(format: "\(key) IN %@", value))
+        return request(withPredicate: NSPredicate(format: "\(key) IN {%@}", value))
     }
     
     /**
@@ -66,7 +66,7 @@ public extension FetchRequest {
      - Returns: New instance
      */
     func filtered(with key: String, notIn value: [String]) -> FetchRequest<T> {
-        return request(withPredicate: NSPredicate(format: "NOT (\(key) IN %@)", value))
+        return request(withPredicate: NSPredicate(format: "NOT (\(key) IN {%@})", value))
     }
 }
 
