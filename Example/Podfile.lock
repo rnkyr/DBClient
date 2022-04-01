@@ -1,6 +1,6 @@
 PODS:
-  - DBClient/Core (3.0.5)
-  - DBClient/CoreData (3.0.5):
+  - DBClient/Core (3.1.0)
+  - DBClient/CoreData (3.1.0):
     - DBClient/Core
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DBClient: 6d480c84ac1e73c691cfffe618b78032a1c16d74
+  DBClient: cd3b3bb62c44811ef1de13e1904b4ebd41818870
 
 PODFILE CHECKSUM: 6cd826845901c3bca699f5018dff4ae2e915a176
 
