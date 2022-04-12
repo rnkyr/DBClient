@@ -90,7 +90,7 @@ public extension DBClient {
             return
         }
         
-        let primaryKeyPredicate = NSPredicate(format: "%@ == %@", primaryKey, primaryValue)
+        let primaryKeyPredicate = NSPredicate(format: "%K == %@", primaryKey, primaryValue)
         let fetchPredicate: NSPredicate
         if let predicate = predicate {
             fetchPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [primaryKeyPredicate, predicate])

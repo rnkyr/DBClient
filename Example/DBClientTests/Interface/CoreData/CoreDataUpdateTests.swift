@@ -11,15 +11,15 @@ import XCTest
 
 final class CoreDataUpdateTests: DBClientCoreDataTest {
     
-    func test_SyncUpdateUserName_WhenSuccessful_SetsCorrectName() {
-        let randomUser = User.createRandom()
-        
-        dbClient.insert(randomUser)
-        randomUser.name = "Bob"
-        let updationResult = dbClient.update(randomUser)
-        
-        XCTAssertEqual(randomUser, updationResult.value)
-    }
+//    func test_SyncUpdateUserName_WhenSuccessful_SetsCorrectName() {
+//        let randomUser = User.createRandom()
+//        
+//        dbClient.insert(randomUser)
+//        randomUser.name = "Bob"
+//        let updationResult = dbClient.update(randomUser)
+//        
+//        XCTAssertEqual(randomUser, updationResult.value)
+//    }
     
     func test_UpdateUserName_WhenSuccessful_SetsCorrectName() {
         let randomUser = User.createRandom()

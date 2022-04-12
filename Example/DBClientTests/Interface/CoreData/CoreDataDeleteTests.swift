@@ -11,23 +11,23 @@ import XCTest
 
 final class CoreDataDeleteTests: DBClientCoreDataTest {
     
-    func test_SyncSingleDeletion_WhenSuccessful_ReturnsNil() {
-        let randomUser = User.createRandom()
-        
-        let result = dbClient.insert(randomUser)
-        let removalResult = dbClient.delete(result.require())
-        
-        XCTAssertNotNil(removalResult.value)
-    }
-    
-    func test_SyncBulkDeletion_WhenSuccessful_ReturnsNil() {
-        let randomUsers: [User] = (0...100).map { _ in User.createRandom() }
-        
-        let insertionResult = dbClient.insert(randomUsers)
-        let removalResult = dbClient.delete(insertionResult.require())
-        
-        XCTAssertNotNil(removalResult.value)
-    }
+//    func test_SyncSingleDeletion_WhenSuccessful_ReturnsNil() {
+//        let randomUser = User.createRandom()
+//        
+//        let result = dbClient.insert(randomUser)
+//        let removalResult = dbClient.delete(result.require())
+//        
+//        XCTAssertNotNil(removalResult.value)
+//    }
+//    
+//    func test_SyncBulkDeletion_WhenSuccessful_ReturnsNil() {
+//        let randomUsers: [User] = (0...100).map { _ in User.createRandom() }
+//        
+//        let insertionResult = dbClient.insert(randomUsers)
+//        let removalResult = dbClient.delete(insertionResult.require())
+//        
+//        XCTAssertNotNil(removalResult.value)
+//    }
     
     func test_SingleDeletion_WhenSuccessful_ReturnsNil() {
         let randomUser = User.createRandom()

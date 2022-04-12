@@ -12,15 +12,15 @@ import DBClient
 
 final class CoreDataExecuteTests: DBClientCoreDataTest {
     
-    func test_SingleSyncExecute_WhenSuccessful_ReturnsCount() {
-        let randomUser = User.createRandom()
-        
-        dbClient.insert(randomUser)
-        let request = FetchRequest<User>()
-        let executionResult = dbClient.execute(request)
-        
-        XCTAssertEqual(executionResult.require().first!, randomUser)
-    }
+//    func test_SingleSyncExecute_WhenSuccessful_ReturnsCount() {
+//        let randomUser = User.createRandom()
+//        
+//        dbClient.insert(randomUser)
+//        let request = FetchRequest<User>()
+//        let executionResult = dbClient.execute(request)
+//        
+//        XCTAssertEqual(executionResult.require().first!, randomUser)
+//    }
     
     func test_SingleExecute_WhenSuccessful_ReturnsCount() {
         let randomUser = User.createRandom()

@@ -11,25 +11,25 @@ import XCTest
 
 final class CoreDataCreateTests: DBClientCoreDataTest {
     
-    func test_SyncSingleInsertion_WhenSuccessful_ReturnsObject() {
-        let randomUser = User.createRandom()
-        let result = dbClient.insert(randomUser)
-        switch result {
-        case .failure(let error): XCTFail(error.localizedDescription)
-        case .success(let user): XCTAssertEqual(randomUser, user)
-        }
-    }
-    
-    func test_SyncBulkInsertion_WhenSuccessful_ReturnsObjects() {
-        let randomUsers: [User] = (0...100).map { _ in User.createRandom() }
-
-        let result = dbClient.insert(randomUsers)
-        
-        switch result {
-        case .failure(let error): XCTFail(error.localizedDescription)
-        case .success(let users): XCTAssertEqual(users.sorted(), randomUsers.sorted())
-        }
-    }
+//    func test_SyncSingleInsertion_WhenSuccessful_ReturnsObject() {
+//        let randomUser = User.createRandom()
+//        let result = dbClient.insert(randomUser)
+//        switch result {
+//        case .failure(let error): XCTFail(error.localizedDescription)
+//        case .success(let user): XCTAssertEqual(randomUser, user)
+//        }
+//    }
+//    
+//    func test_SyncBulkInsertion_WhenSuccessful_ReturnsObjects() {
+//        let randomUsers: [User] = (0...100).map { _ in User.createRandom() }
+//
+//        let result = dbClient.insert(randomUsers)
+//        
+//        switch result {
+//        case .failure(let error): XCTFail(error.localizedDescription)
+//        case .success(let users): XCTAssertEqual(users.sorted(), randomUsers.sorted())
+//        }
+//    }
     
     func test_SingleInsertion_WhenSuccessful_ReturnsObject() {
         let randomUser = User.createRandom()
