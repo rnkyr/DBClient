@@ -8,6 +8,8 @@
 
 import Foundation
 import CoreData
+import UIKit
+import DBClient
 
 class CoreDataObservable<T: Stored, U: NSManagedObject>: RequestObservable<T> {
     

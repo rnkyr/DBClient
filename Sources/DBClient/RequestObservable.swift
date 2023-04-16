@@ -31,11 +31,11 @@ public enum ObservableChange<T: Stored> {
     case error(Error)
 }
 
-public class RequestObservable<T: Stored> {
+open class RequestObservable<T: Stored> {
     
     let request: FetchRequest<T>
     
-    init(request: FetchRequest<T>) {
+    public init(request: FetchRequest<T>) {
         self.request = request
     }
     
@@ -43,7 +43,7 @@ public class RequestObservable<T: Stored> {
     ///
     /// - Parameter closure: gets called once any changes in database are occurred.
     /// - Warning: You cannot call the method only if you don't observe it now.
-    public func observe(_ closure: @escaping (ObservableChange<T>) -> Void) {
+    open func observe(_ closure: @escaping (ObservableChange<T>) -> Void) {
         assertionFailure("The observe method must be overriden")
     }
 }

@@ -1,6 +1,0 @@
-framework module DBClient {
-  umbrella header "DBClient-umbrella.h"
-
-  export *
-  module * { export * }
-}

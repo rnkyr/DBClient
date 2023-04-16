@@ -8,6 +8,7 @@
 
 import Foundation
 import DBClient
+import DBClientCoreData
 import CoreData
 
 extension User: CoreDataModelConvertible {

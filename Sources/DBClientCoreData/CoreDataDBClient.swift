@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import DBClient
 
 extension NSManagedObject: Stored {
 

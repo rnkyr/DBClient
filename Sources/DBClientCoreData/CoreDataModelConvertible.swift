@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import DBClient
 
 /// Describes type of model for CoreData database client.
 /// Model should conform to CoreDataModelConvertible protocol

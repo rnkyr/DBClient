@@ -8,6 +8,7 @@
 
 import XCTest
 import DBClient
+import DBClientCoreData
 
 class DBClientCoreDataTest: DBClientTest {
     
