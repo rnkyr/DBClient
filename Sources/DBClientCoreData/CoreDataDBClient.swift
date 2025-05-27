@@ -10,7 +10,7 @@ import CoreData
 import DBClient
 
 extension NSManagedObject: Stored {
-
+    
     public static var primaryKeyName: String? { return nil }
     
     public var valueOfPrimaryKey: CVarArg? { return nil }
@@ -20,8 +20,11 @@ extension NSManagedObject: Stored {
 public class CoreDataDBClient {
     
     private let modelName: String
+    private let storeURL: URL
     private let bundle: Bundle
     private let migrationType: MigrationType
+    private let managedObjectModel: NSManagedObjectModel
+    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let persistentStoreType = NSSQLiteStoreType
     
     /// Constructor for client
@@ -34,53 +37,51 @@ public class CoreDataDBClient {
         self.modelName = modelName
         self.bundle = bundle
         self.migrationType = migrationType
-    }
-    
-    // MARK: - CoreData stack
-    
-    private lazy var storeURL: URL = {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let applicationDocumentsDirectory = urls[urls.count - 1]
         
-        return applicationDocumentsDirectory.appendingPathComponent("\(self.modelName).sqlite")
-    }()
-    
-    private lazy var managedObjectModel: NSManagedObjectModel = {
-        guard let modelURL = self.bundle.url(forResource: self.modelName, withExtension: "momd"),
-            let objectModel = NSManagedObjectModel(contentsOf: modelURL) else {
-                fatalError("Can't find managedObjectModel named \(self.modelName) in \(self.bundle)")
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        storeURL = urls[urls.count - 1].appendingPathComponent("\(modelName).sqlite")
+        
+        guard let modelURL = bundle.url(forResource: modelName, withExtension: "momd"),
+              let objectModel = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("Can't find managedObjectModel named \(modelName) in \(bundle)")
+        }
+        self.managedObjectModel = objectModel
+        
+        let isMigrationNeeded: Bool
+        do {
+            let metadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(
+                ofType: persistentStoreType,
+                at: storeURL,
+                options: nil
+            )
+            isMigrationNeeded = !managedObjectModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
+        } catch {
+            isMigrationNeeded = false
         }
         
-        return objectModel
-    }()
-    
-    private lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel:  self.managedObjectModel)
+        persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         
-        if !self.isMigrationNeeded() {
+        if isMigrationNeeded {
             do {
-                try coordinator.addPersistentStore(
-                    ofType: self.persistentStoreType,
+                try self.performMigration(persistentStoreCoordinator)
+            } catch let error {
+                fatalError("\(error)")
+            }
+        } else {
+            do {
+                try persistentStoreCoordinator.addPersistentStore(
+                    ofType: persistentStoreType,
                     configurationName: nil,
-                    at: self.storeURL,
+                    at: storeURL,
                     options: nil
                 )
-                
-                return coordinator
             } catch let error {
                 fatalError("\(error)")
             }
         }
-        
-        // need perform migration
-        do {
-            try self.performMigration(coordinator)
-        } catch let error {
-            fatalError("\(error)")
-        }
-        
-        return coordinator
-    }()
+    }
+    
+    // MARK: - CoreData stack
     
     private lazy var rootContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
@@ -112,21 +113,6 @@ public class CoreDataDBClient {
     }()
     
     // MARK: - Migration
-    
-    private func isMigrationNeeded() -> Bool {
-        do {
-            let metadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(
-                ofType: persistentStoreType,
-                at: storeURL,
-                options: nil
-            )
-            let model = self.managedObjectModel
-            
-            return !model.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
-        } catch {
-            return false
-        }
-    }
     
     private func performMigration(_ coordinator: NSPersistentStoreCoordinator) throws {
         var options: [AnyHashable: Any]?
@@ -233,7 +219,7 @@ extension CoreDataDBClient: DBClient {
     
     public func execute<T>(_ request: FetchRequest<T>, completion: @escaping (Result<[T], DataBaseError>) -> Void) where T: Stored {
         let coreDataModelType = checkType(T.self)
-
+        
         performReadTask { context in
             let fetchRequest = self.fetchRequest(for: coreDataModelType)
             fetchRequest.predicate = request.predicate
@@ -255,7 +241,7 @@ extension CoreDataDBClient: DBClient {
     /// If appropriate object already exists in DB it will be ignored and nothing will be inserted
     public func insert<T>(_ objects: [T], completion: @escaping (Result<[T], DataBaseError>) -> Void) where T: Stored {
         checkType(T.self)
-
+        
         performWriteTask { context, savingClosure in
             var insertedObjects = [T]()
             let foundObjects = self.find(objects: objects, in: context)
@@ -281,7 +267,7 @@ extension CoreDataDBClient: DBClient {
     /// if there is no such object in db nothing will happened
     public func update<T>(_ objects: [T], completion: @escaping (Result<[T], DataBaseError>) -> Void) where T: Stored {
         checkType(T.self)
-
+        
         performWriteTask { context, savingClosure in
             var updatedObjects = [T]()
             
@@ -307,7 +293,7 @@ extension CoreDataDBClient: DBClient {
     /// Update object if it exists or insert new one otherwise
     public func upsert<T>(_ objects: [T], completion: @escaping (Result<(updated: [T], inserted: [T]), DataBaseError>) -> Void) where T: Stored {
         checkType(T.self)
-
+        
         performWriteTask { context, savingClosure in
             var updatedObjects = [T]()
             var insertedObjects = [T]()
@@ -335,7 +321,7 @@ extension CoreDataDBClient: DBClient {
     /// After all deletes try to save context
     public func delete<T>(_ objects: [T], completion: @escaping (Result<Void, DataBaseError>) -> Void) where T: Stored {
         checkType(T.self)
-
+        
         performWriteTask { context, savingClosure in
             let foundObjects = self.find(objects, in: context)
             foundObjects.forEach { context.delete($0) }
